@@ -1,0 +1,55 @@
+
+<script src="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone-min.js"></script>
+<script>
+    Dropzone.autoDiscover = false;
+</script>
+
+<link rel="stylesheet" href="https://unpkg.com/dropzone@6.0.0-beta.1/dist/dropzone.css" type="text/css" />
+
+<div class="inline-group drag-and-drop-related">
+    <fieldset class="module sortable">
+        <div class="add-row">
+            {% if add %}
+                <input class="button" type="submit" value="Save" name="_continue"> 
+                the {{ opts.verbose_name }} to enable drag-and-drop {{ relation }} uploading here.
+            {% else %}
+                <div class="dropzone" id="dropzone-{{ relation }}-{{ object_id }}"></div>
+                <script>
+                    url = "{{ change_url_for_relation_model }}"
+                    preloaded = {{ preloaded }}
+                    var myDropzone = new Dropzone("div#dropzone-{{ relation }}-{{ object_id }}", {
+                        addRemoveLinks: true,
+                        headers: { "X-CSRFToken": "{{ csrf_token }}" },
+                        init: function() {
+                            this.on("removedfile", function(file) {
+                                delete_url = file?.delete_url ? file.delete_url : file?.upload?.delete_url;
+                                
+                                fetch(delete_url, {
+                                    headers: { "X-CSRFToken": "{{ csrf_token }}" },
+                                    method: "DELETE",
+                                });
+                            });
+                            this.on("success", function(file, response) {
+                                file.upload.delete_url = response.delete_url
+                            });
+                        },
+                        paramName: "{{ related_model_field_name }}",
+                        url: url,
+                    });
+
+                    if (preloaded.length) {
+                        for (const file of preloaded) {
+                            mock = {
+                                delete_url: file.delete_url,
+                                name: file.name, 
+                                size: file.size, 
+                                id: file.id
+                            }
+                            myDropzone.displayExistingFile(mock, file.url);
+                        }
+                    }
+                </script>
+            {% endif %}
+        </div>
+    </fieldset>
+</div>
