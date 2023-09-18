@@ -1,3 +1,3 @@
-# region				-----Internal Imports-----
+# region				-----External Imports-----
 from .admin import *
 # endregion

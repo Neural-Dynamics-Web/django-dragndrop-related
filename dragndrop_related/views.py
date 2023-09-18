@@ -113,3 +113,28 @@ class DragAndDropView(
             request=request, 
             *args, **kwargs
         )
+
+
+def delete(
+        request: django.http.HttpRequest, 
+        model_name: typing.AnyStr,
+        app_label: typing.AnyStr, 
+        id: typing.Any
+    ) -> django.http.HttpResponse:
+    # ? Add support for any model in database
+    # ? via apps.get_model function
+
+    model = django.apps.apps.get_model(
+        model_name=model_name,
+        app_label=app_label
+    )
+    
+    data = django.shortcuts\
+        .get_object_or_404(
+            klass=model, 
+            id=id
+        ).delete()
+
+    return django.http.HttpResponse(
+        status=200
+    )
