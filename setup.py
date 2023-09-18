@@ -40,8 +40,6 @@ setup(
     description=DESCRIPTION,
     long_description=open('README.md', 'r', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
-    author='James Tiplady',
-    maintainer='James Tiplady',
     license='MIT',
     keywords=['django'],
     platforms=['OS Independent'],
@@ -54,12 +52,9 @@ setup(
     extras_require={
         'dev': [
             'Django>=3.2',
-            'django-admin-thumbnails>=0.2.6',
-            'django-cleanup>=6.0.0',
             'flake8>=3.7.7',
             'ipdb>=0.13.13',
             'ipython>=8.12.2',
-            'Pillow>=9.1.1',
             'setuptools>=41.0.0',
             'twine>=1.13.0',
             'wheel>=0.33.1',
