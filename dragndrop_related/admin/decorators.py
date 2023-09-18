@@ -10,7 +10,7 @@ def display(
         relation_manager: typing.AnyStr,
         relation_field: typing.AnyStr,
 
-        template: typing.AnyStr = "dragndrop_related/dragndrop.html",
+        template: typing.AnyStr = "dragndrop.html",
         ordering: typing.AnyStr = None
     ) -> typing.Callable:
     
