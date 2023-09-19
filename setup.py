@@ -43,22 +43,15 @@ setup(
     license='MIT',
     keywords=['django'],
     platforms=['OS Independent'],
-    url='http://github.com/BigglesZX/django-dragndrop-related',
+    url='http://github.com/NeuralDynamicsWeb/django-dragndrop-related',
     packages=find_packages(),
     include_package_data=True,
+
+    author='Neural Dynamics',
+    author_email='neuraldynamics.web@gmail.com',
+
     zip_safe=False,
     python_requires='>=3.6,<4',
     install_requires=['Django>=3.2'],
-    extras_require={
-        'dev': [
-            'Django>=3.2',
-            'flake8>=3.7.7',
-            'ipdb>=0.13.13',
-            'ipython>=8.12.2',
-            'setuptools>=41.0.0',
-            'twine>=1.13.0',
-            'wheel>=0.33.1',
-        ]
-    },
     classifiers=CLASSIFIERS
 )

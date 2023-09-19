@@ -11,6 +11,7 @@ def display(
         relation_field: typing.AnyStr,
 
         template: typing.AnyStr = "dragndrop.html",
+        empty_value: typing.AnyStr = "-",
         ordering: typing.AnyStr = None
     ) -> typing.Callable:
     
@@ -37,8 +38,12 @@ def display(
                 model_name = self.model._meta.model_name
                 app_label = self.model._meta.app_label
 
-                url = f"/admin/{app_label}/{model_name}/{instance.id}"\
-                    + f"/drag-and-drop/{relation_manager}"
+                if django.conf.settings.USE_I18N:
+                    url = f"/en/admin/{app_label}/{model_name}/{instance.id}"\
+                        + f"/drag-and-drop/{relation_manager}"
+                else:
+                    url = f"/admin/{app_label}/{model_name}/{instance.id}"\
+                        + f"/drag-and-drop/{relation_manager}"
                 
                 context["change_url_for_relation_model"] = url
 
@@ -96,7 +101,10 @@ def display(
                 )
             
             return html
-
+        
+        default_wrapper.empty_value_display =\
+            empty_value
+        
         default_wrapper.short_description =\
             short_description
 
